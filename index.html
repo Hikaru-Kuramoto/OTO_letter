@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChatGPT×Excel はじめての時短ルーティン講座</title>
+<style>
+  :root {
+    --main-color: #2c3e50;
+    --accent-color: #ff6b35;
+    --sub-color: #4a90d9;
+    --bg-light: #f9f9f7;
+    --text-color: #333333;
+    --border-color: #e0e0e0;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "メイリオ", sans-serif;
+    color: var(--text-color);
+    line-height: 1.9;
+    background-color: #ffffff;
+    font-size: 16px;
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* ===== プリヘッド ===== */
+  .prehead {
+    text-align: center;
+    background-color: var(--main-color);
+    color: #ffffff;
+    padding: 14px 10px;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===== ヘッドラインエリア ===== */
+  .hero {
+    background: linear-gradient(180deg, #f4f6f8 0%, #ffffff 100%);
+    padding: 50px 0 40px;
+    text-align: center;
+  }
+
+  .headline {
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.5;
+    color: var(--main-color);
+    margin: 0 auto 24px;
+    max-width: 640px;
+  }
+
+  .headline .highlight {
+    color: var(--accent-color);
+    background: linear-gradient(transparent 65%, #ffe3d4 65%);
+  }
+
+  .deck-copy {
+    font-size: 16px;
+    color: #555555;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .deck-copy p {
+    margin-bottom: 6px;
+  }
+
+  .hero-image-placeholder {
+    margin: 36px auto 0;
+    max-width: 560px;
+    background-color: #eeeeee;
+    border: 2px dashed #bbbbbb;
+    border-radius: 8px;
+    padding: 60px 20px;
+    text-align: center;
+    color: #888888;
+    font-size: 14px;
+  }
+
+  /* ===== 本文セクション共通 ===== */
+  section {
+    padding: 50px 0;
+  }
+
+  section.alt-bg {
+    background-color: var(--bg-light);
+  }
+
+  h2.section-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--main-color);
+    margin-bottom: 22px;
+    line-height: 1.6;
+    border-left: 6px solid var(--accent-color);
+    padding-left: 14px;
+  }
+
+  p {
+    margin-bottom: 18px;
+  }
+
+  .lead-question {
+    background-color: #fff8f4;
+    border: 1px solid #ffd7bd;
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 24px 0;
+  }
+
+  .lead-question p {
+    margin-bottom: 10px;
+  }
+
+  .lead-question p:last-child {
+    margin-bottom: 0;
+  }
+
+  ul.check-list, ul.feature-list {
+    list-style: none;
+    margin: 20px 0;
+  }
+
+  ul.check-list li, ul.feature-list li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 14px;
+  }
+
+  ul.check-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--accent-color);
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  ul.feature-list li::before {
+    content: "●";
+    position: absolute;
+    left: 0;
+    top: 4px;
+    color: var(--sub-color);
+    font-size: 10px;
+  }
+
+  .image-placeholder {
+    background-color: #eeeeee;
+    border: 2px dashed #bbbbbb;
+    border-radius: 8px;
+    padding: 40px 20px;
+    text-align: center;
+    color: #888888;
+    font-size: 14px;
+    margin: 24px 0;
+  }
+
+  /* ===== 商品モックアップカード ===== */
+  .product-showcase {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 30px;
+    margin: 30px 0;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+  }
+
+  .video-list {
+    margin-top: 20px;
+  }
+
+  .video-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .video-item:last-child {
+    border-bottom: none;
+  }
+
+  .video-thumb {
+    flex-shrink: 0;
+    width: 96px;
+    height: 60px;
+    background-color: #e0e0e0;
+    border: 1px dashed #aaaaaa;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: #888888;
+    text-align: center;
+  }
+
+  .video-info .video-num {
+    font-size: 12px;
+    color: var(--accent-color);
+    font-weight: 700;
+  }
+
+  .video-info .video-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--main-color);
+  }
+
+  /* ===== 対象者ボックス ===== */
+  .target-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 24px;
+  }
+
+  @media (max-width: 600px) {
+    .target-box { grid-template-columns: 1fr; }
+  }
+
+  .target-card {
+    border-radius: 10px;
+    padding: 22px;
+  }
+
+  .target-card.yes {
+    background-color: #eef8f0;
+    border: 1px solid #b8e0c2;
+  }
+
+  .target-card.no {
+    background-color: #f5f5f5;
+    border: 1px solid #dddddd;
+  }
+
+  .target-card h3 {
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+
+  .target-card.yes h3 { color: #2e8b57; }
+  .target-card.no h3 { color: #888888; }
+
+  .target-card ul {
+    list-style: none;
+    font-size: 14px;
+  }
+
+  .target-card ul li {
+    margin-bottom: 8px;
+    padding-left: 18px;
+    position: relative;
+  }
+
+  .target-card.yes li::before {
+    content: "○";
+    position: absolute;
+    left: 0;
+    color: #2e8b57;
+  }
+
+  .target-card.no li::before {
+    content: "×";
+    position: absolute;
+    left: 0;
+    color: #aaaaaa;
+  }
+
+  /* ===== 価格ボックス ===== */
+  .price-box {
+    text-align: center;
+    background-color: var(--main-color);
+    color: #ffffff;
+    border-radius: 12px;
+    padding: 40px 24px;
+    margin: 30px 0;
+  }
+
+  .price-box .price-label {
+    font-size: 15px;
+    opacity: 0.85;
+    margin-bottom: 8px;
+  }
+
+  .price-box .price {
+    font-size: 42px;
+    font-weight: 800;
+    color: #ffdcb0;
+  }
+
+  .price-box .price small {
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  /* ===== CTA ===== */
+  .cta-wrapper {
+    text-align: center;
+    margin: 36px 0;
+  }
+
+  .cta-button {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: #ffffff;
+    font-size: 19px;
+    font-weight: 700;
+    padding: 20px 50px;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 6px 16px rgba(255,107,53,0.35);
+    transition: transform 0.15s ease;
+  }
+
+  .cta-button:hover {
+    transform: translateY(-2px);
+  }
+
+  .cta-sub {
+    font-size: 13px;
+    color: #888888;
+    margin-top: 12px;
+  }
+
+  /* ===== Q&A ===== */
+  .qa-item {
+    border-bottom: 1px solid var(--border-color);
+    padding: 20px 0;
+  }
+
+  .qa-item:last-child {
+    border-bottom: none;
+  }
+
+  .qa-q {
+    font-weight: 700;
+    color: var(--main-color);
+    margin-bottom: 10px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .qa-q span, .qa-a span {
+    flex-shrink: 0;
+    font-weight: 800;
+  }
+
+  .qa-q span { color: var(--accent-color); }
+  .qa-a span { color: var(--sub-color); }
+
+  .qa-a {
+    display: flex;
+    gap: 10px;
+    color: #555555;
+    font-size: 15px;
+    margin-bottom: 0;
+  }
+
+  /* ===== 追伸 ===== */
+  .ps-box {
+    background-color: #fff8f4;
+    border-left: 5px solid var(--accent-color);
+    padding: 26px 24px;
+    margin-top: 20px;
+    font-size: 15px;
+  }
+
+  .ps-box p {
+    margin-bottom: 14px;
+  }
+
+  .ps-box p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ===== フッター ===== */
+  footer {
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 12px;
+    color: #999999;
+    border-top: 1px solid var(--border-color);
+  }
+
+  h3.sub-heading {
+    font-size: 17px;
+    color: var(--main-color);
+    margin: 22px 0 12px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== プリヘッド ===== -->
+<div class="prehead">
+  「AIに聞くには難しい言い方が必要」と思っている、あなたへ
+</div>
+
+<!-- ===== ヘッドライン／デックコピー ===== -->
+<div class="hero">
+  <div class="container">
+    <h1 class="headline">
+      実は、ExcelもAIも<br>「<span class="highlight">頑張って覚える</span>」時代は<br>もう終わっています
+    </h1>
+    <div class="deck-copy">
+      <p>関数を100個覚える必要はありません。</p>
+      <p>プロンプトの書き方を勉強する必要もありません。</p>
+      <p>必要なのは、ただ「困ったときの聞き方」を知っているかどうか<br>
+        それだけです。</p>
+    </div>
+
+    <div class="hero-image-placeholder">
+      [ここに「Excel画面の前で困っている会社員」のイメージ画像を挿入]
+    </div>
+  </div>
+</div>
+
+<!-- ===== 問題提起（P） ===== -->
+<section>
+  <div class="container">
+    <p>「そうは言っても、自分の場合は違うんじゃないか」</p>
+    <p>そう思われたかもしれません。</p>
+    <p>では、少し聞かせてください。</p>
+
+    <div class="lead-question">
+      <ul class="check-list">
+        <li>VLOOKUPとXLOOKUP、結局どちらを使えばいいのか、自信を持って答えられますか。</li>
+        <li>「#N/A」というエラーが出たとき、原因を数式を見ただけで特定できますか。</li>
+        <li>Googleで検索して出てきた解説を、そのまま自分の表に当てはめられたことは、実際どれくらいありますか。</li>
+      </ul>
+    </div>
+
+    <p>もし少しでも詰まる瞬間があるなら、それはあなたの能力の問題ではありません。<br>
+    Excelという道具の「使い方」ではなく、「困ったときの動き方」を、まだ知らないだけです。</p>
+
+    <h2 class="section-title">なぜ「調べる」ほど時間が溶けていくのか</h2>
+
+    <p>多くの人は、Excelで分からないことがあると、まず検索します。<br>
+    これ自体は間違いではありません。問題は、そこから先です。</p>
+
+    <p>出てきた解説は、たいてい別のケースを想定したもの。<br>
+    関数の使い方は書いてあっても、「なぜ自分の表ではエラーになるのか」までは教えてくれません。<br>
+    結果、いくつものページを開き、試し、また検索し直す。<br>
+    気づけば20分、30分。ひどいときは1時間近く、たった一つのセルのために溶けていきます。</p>
+
+    <div class="image-placeholder">
+      [ここに「検索窓に何度も入力し直している様子」または「散らかったブラウザタブ」のイメージ画像を挿入]
+    </div>
+
+    <p>これが、日々の残業や「今日も終わらなかった...」という感覚の、正体の一つです。</p>
+  </div>
+</section>
+
+<!-- ===== 親近感（A） ===== -->
+<section class="alt-bg">
+  <div class="container">
+    <h2 class="section-title">「頑張り方」自体が、実は遠回りだった</h2>
+
+    <p>真面目な人ほど、こう考えます。</p>
+    <p>「もっと関数を覚えれば、早くなるはずだ」<br>
+    「Excelの本を読んで、体系的に勉強し直そう」</p>
+
+    <p>その努力は、決して無駄ではありません。<br>
+    ですが、覚えるべき関数は数百種類。<br>
+    すべてを頭に入れることは、現実的ではありませんし、その必要もありません。</p>
+
+    <p>そしてもう一つ、多くの人が誤解していることがあります。</p>
+
+    <div class="lead-question">
+      <p>「ChatGPTに聞けば早いのは分かっている。<br>でも、AIに的確に答えてもらうには、詳しい説明や難しいプロンプトの書き方が必要なんでしょ？」</p>
+    </div>
+
+    <p>――実はここが、一番の誤解です。</p>
+
+    <p>ChatGPTは、あなたが専門用語を並べなくても、Excelの状況をそのまま伝えるだけで、驚くほど的確に答えてくれます。<br>
+    必要なのは「賢い質問の仕方」ではなく、「困ったときに、どういう順番で、何を伝えればいいか」という、ごくシンプルなルーティンだけです。</p>
+  </div>
+</section>
+
+<!-- ===== 解決策（S） ===== -->
+<section>
+  <div class="container">
+    <h2 class="section-title">知識を増やすのではなく、「自分で解決できる状態」を作る</h2>
+
+    <p>これが、この講座の考え方です。</p>
+
+    <p>Excelの操作や関数を一つひとつ暗記していくアプローチは、正直に言って時間がかかる上に、覚えたそばから忘れていきます。</p>
+
+    <p>そうではなく、</p>
+
+    <ul class="check-list">
+      <li>分からないことに出会ったとき、どうやって調べる時間を減らすか</li>
+      <li>やりたいことを、そのままAIにどう伝えるか</li>
+      <li>使うべき関数を、どう相談して絞り込むか</li>
+      <li>出てきた数式やエラーを、どう解決までもっていくか</li>
+    </ul>
+
+    <p>この「困ったときの動き方」そのものを、ルーティンとして身につけてしまう。<br>
+    そうすれば、Excelの知識量に関係なく、次に何が起きても、自分の力でその場で解決できるようになります。</p>
+
+    <div class="image-placeholder">
+      [ここに「ChatGPTとExcelの画面を並べて相談しているスクリーンショット風」の画像を挿入]
+    </div>
+
+    <p>これは、検索スキルでも、プロンプトの専門知識でもありません。<br>
+    「Excelで実際につまずきやすい場面」を題材に、初心者でもそのままAIに相談できる型を、体系立てて身につけていただくものです。</p>
+  </div>
+</section>
+
+<!-- ===== オファー（O） ===== -->
+<section class="alt-bg">
+  <div class="container">
+    <h2 class="section-title">この講座で手に入るもの</h2>
+
+    <p>「ChatGPT×Excel はじめての時短ルーティン講座」は、全6本の動画で構成されています。</p>
+
+    <p>1本あたり数分〜十数分程度。難しい前置きは一切なく、Excelで実際に「あ、詰まった」と感じる場面を、そのまま題材にしています。</p>
+
+    <div class="product-showcase">
+      <h3 class="sub-heading" style="margin-top:0;">収録内容（全6動画）</h3>
+      <div class="video-list">
+        <div class="video-item">
+          <div class="video-thumb">
+            <img src="動画のサムネ.png" alt="" width="95px">
+          </div>
+          <div class="video-info">
+            <div class="video-num">Lesson 1</div>
+            <div class="video-title">もうExcelで止まらない！AI時短ルーティンの始め方</div>
+          </div>
+        </div>
+        <div class="video-item">
+          <div class="video-thumb">
+            <img src="動画のサムネ6.png" alt="" width="95px">
+          </div>
+          <div class="video-info">
+            <div class="video-num">Lesson 2</div>
+            <div class="video-title">検索沼から抜け出す！Excelの「調べる時間」をAIで減らす方法</div>
+          </div>
+        </div>
+        <div class="video-item">
+          <div class="video-thumb">
+            <img src="動画のサムネ4.png" alt="" width="95px">
+          </div>
+          <div class="video-info">
+            <div class="video-num">Lesson 3</div>
+            <div class="video-title">難しい説明は不要！やりたいことをそのままAIに伝えるコツ</div>
+          </div>
+        </div>
+        <div class="video-item">
+          <div class="video-thumb">
+            <img src="動画のサムネ3.png" alt="" width="95px">
+          </div>
+          <div class="video-info">
+            <div class="video-num">Lesson 4</div>
+            <div class="video-title">関数選びで迷わない！「やりたいこと」からAIに最適解を聞く方法</div>
+          </div>
+        </div>
+        <div class="video-item">
+          <div class="video-thumb">
+            <img src="動画のサムネ5.png" alt="" width="95px">
+          </div>
+          <div class="video-info">
+            <div class="video-num">Lesson 5</div>
+            <div class="video-title">数式・エラーで止まらない！AIにそのまま投げて解決まで進む方法</div>
+          </div>
+        </div>
+        <div class="video-item">
+          <div class="video-thumb">
+            <img src="動画のサムネ2.png" alt="" width="95px">
+          </div>
+          <div class="video-info">
+            <div class="video-num">Lesson 6</div>
+            <div class="video-title">困ったらこの順番！Excel×AI時短ルーティンを身につけよう</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p>一つひとつの動画は独立していますが、順番に見ていただくことで、「困ったら、まずこう動く」という流れが、無理なく身についていきます。</p>
+  </div>
+</section>
+
+<!-- ===== 絞り込み（N） ===== -->
+<section>
+  <div class="container">
+    <h2 class="section-title">こんな方のための講座です</h2>
+
+    <div class="target-box">
+      <div class="target-card yes">
+        <h3>こんな方におすすめです</h3>
+        <ul>
+          <li>Excelを日常的に使うが、複雑になると自力で解決できない</li>
+          <li>ChatGPTをExcelの相談にうまく使えていない</li>
+          <li>分からないことがあるたびに検索し、時間を浪費している</li>
+          <li>Excelのヘルプを読んでもかえって混乱してしまう</li>
+          <li>関数を覚えるのが苦手、または覚える時間がない</li>
+        </ul>
+      </div>
+      <div class="target-card no">
+        <h3>こんな方には不向きかもしれません</h3>
+        <ul>
+          <li>すでに関数やVBAをバリバリに使いこなしている方</li>
+          <li>すでにChatGPTを活用して、Excel業務の時短に成功している方</li>
+          <li>複雑な業務を自動化したり、ツール開発をしたい方</li>
+          <li>Excelのヘルプを読めば問題を解決できる自信がある方</li>
+          <li>資格取得に向けて、Excelを体系的に学びたいと考えている方</li>
+
+        </ul>
+      </div>
+    </div>
+
+    <p style="margin-top:24px;">この講座が目指しているのは「知識を増やすこと」ではなく、あくまで「分からないときに、自分で解決まで進められる状態を作ること」です。</p>
+  </div>
+</section>
+
+<!-- ===== 価格＆CTA（A） ===== -->
+<section class="alt-bg">
+  <div class="container">
+    <h2 class="section-title">1,980円という価格について</h2>
+
+    <p>正直にお伝えすると、この内容であれば、もっと高い価格をつけることもできたと思います。</p>
+
+    <p>ですが今回は、「まず試していただき、日々のExcel作業が本当に変わる感覚を知ってほしい」という思いから、1,980円という価格でご提供することにしました。</p>
+
+    <p>外での食事一回分ほどの金額で、これから何年も続くExcel作業の「詰まる時間」そのものを減らせるとしたら――決して高い投資ではないはずです。</p>
+
+    <div class="price-box">
+      <div class="price-label">ChatGPT×Excel はじめての時短ルーティン講座</div>
+      <div class="price"><small>￥</small>1,980<small>（税込）</small></div>
+    </div>
+
+    <p>ここまで読んでくださったということは、少なからず「このままでいいのだろうか」という思いがあったのではないでしょうか。</p>
+
+    <p>検索に費やす時間、エラーの前で固まる時間、それらは、今日申し込んでいただければ、明日からのExcel作業で少しずつ減らしていけます。</p>
+
+    <p>覚えることは、ほとんどありません。<br>
+    必要なのは、正しい「動き方」を知ること。それだけです。</p>
+
+    <p>ぜひ今日から、その一歩を踏み出してください。</p>
+
+    <div class="cta-wrapper">
+      <a href="#" class="cta-button">今すぐ講座に申し込む（1,980円）</a>
+      <div class="cta-sub">お申し込み後、すぐに全6動画をご視聴いただけます</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Q&A ===== -->
+<section>
+  <div class="container">
+    <h2 class="section-title">よくある質問</h2>
+
+    <div class="qa-item">
+      <div class="qa-q"><span>Q.</span>Excel初心者ですが、ついていけますか？</div>
+      <div class="qa-a"><span>A.</span>問題ありません。この講座は関数の知識量を前提にしていません。むしろ「詳しくないからこそ、AIへの相談の仕方を知っておきたい」という方のために作られています。</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q"><span>Q.</span>ChatGPTの有料版（Plus）は必要ですか？</div>
+      <div class="qa-a"><span>A.</span>無料版のChatGPTでも、講座でお伝えするルーティンは実践していただけます。有料版をお持ちの方は、より快適に活用いただけます。</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q"><span>Q.</span>1本あたりどのくらいの時間がかかりますか？</div>
+      <div class="qa-a"><span>A.</span>1本あたり数分〜十数分程度です。スキマ時間や休憩中にも見ていただける長さに設計しています。</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q"><span>Q.</span>視聴期限はありますか？</div>
+      <div class="qa-a"><span>A.</span>ご購入後は、ご自身のペースで繰り返し視聴いただけます。まずは一通り見ていただき、業務で詰まったときに該当の動画を見返す、という使い方がおすすめです。</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q"><span>Q.</span>会社のパソコンでChatGPTを使うのが不安です。</div>
+      <div class="qa-a"><span>A.</span>職場のセキュリティポリシーによりますので、まずは所属先のルールをご確認ください。<br>
+        この講座では、AIに相談しながら関数やエラーの原因を解決していく過程が学べますので、ご自身のPCで受講いただくだけでも、Excelそのものへの理解を深めるためにご活用いただけます。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 追伸（PS） ===== -->
+<section class="alt-bg">
+  <div class="container">
+    <h2 class="section-title">追伸</h2>
+
+    <div class="ps-box">
+      <p>ここまで読んでくださり、ありがとうございます。</p>
+      <p>もしかすると、「本当に自分にもできるだろうか」と、まだ少し迷いがあるかもしれません。</p>
+      <p>ですが思い出してみてください。今このページを読むまでの間にも、Excelで何かに詰まって、検索して、時間を使ったことが、一度や二度ではないはずです。</p>
+      <p>その時間は、この講座を見終えたあと、少しずつ短くなっていきます。1回1回はわずかでも、1年、2年と積み重なれば、決して小さな差ではありません。</p>
+      <p>1,980円という価格は、その未来への、いちばん小さな一歩です。</p>
+      <p>ぜひ今日、その一歩を踏み出してください。</p>
+    </div>
+
+    <div class="cta-wrapper">
+      <a href="#" class="cta-button">今すぐ講座に申し込む（1,980円）</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © ChatGPT×Excel はじめての時短ルーティン講座
+</footer>
+
+</body>
+</html>
